@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Accueil</title>
+<style>
+:root{--ink:#0f172a;--accent:#007bff;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:system-ui, sans-serif;color:var(--ink);background:#fff;}
+header{background:var(--accent);color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+header .brand{font-size:1.25rem;font-weight:700;color:#fff;text-decoration:none}
+header nav a:hover{opacity:1}
+main{max-width:900px;margin:0 auto;padding:32px 20px}
+footer{border-top:1px solid #eee;margin-top:40px;padding:20px;text-align:center;color:#94a3b8;font-size:.9rem}
+@media(max-width:640px){header nav a{margin-left:10px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="index.html">Démo BFSites</a><nav><a href="index.html" style="color:#fff;text-decoration:none;opacity:.9;margin-left:18px">Accueil</a></nav></header>
+<main><h1 style="margin:24px 0 12px;font-size:2em;color:var(--ink)">Bienvenue sur BFSites</h1>
+<p style="margin:0 0 16px;line-height:1.6;color:var(--ink)">Site d&#39;exemple publié automatiquement sur GitHub Pages via BFSites.</p>
+<div style="text-align:left;margin:18px 0"><a href="https://github.com" style="display:inline-block;background:var(--accent);color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600">En savoir plus</a></div>
+<div style="height:24px"></div>
+<p style="margin:0 0 16px;line-height:1.6;color:var(--ink)">Ceci est un test de publication réelle.</p></main>
+<footer>(c) 2026 Démo BFSites</footer>
+<script>
+async function handleFormSubmit(e){
+e.preventDefault();
+var f=e.target;var msg=f.querySelector('.form-msg');
+var payload={form_id:f.getAttribute('data-form-id'),data:{}};
+Array.prototype.forEach.call(f.elements,function(el){if(el.name){payload.data[el.name]=el.value;}});
+try{
+var r=await fetch("https://base44-dispatcher-production.base44.workers.dev/api/functions/receiveFormSubmission",{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+if(!r.ok)throw new Error('Erreur');
+msg.style.color='#16a34a';msg.textContent="Message envoyé, merci !";
+f.reset();
+}catch(err){msg.style.color='#dc2626';msg.textContent='Une erreur est survenue, reessayez.';}
+return false;
+}
+</script>
+</body>
+</html>
